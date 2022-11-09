@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
-        PrintEmployees("C:\\Users\\LaptopNeumont-Sage\\Neumont\\DBT220\\phase1\\Simple-Persistence-Phase-1\\simple");
+        PrintEmployees("C:\\aNeumont\\Year 2\\Q1\\Databases II\\Simple Persistence\\Assignment 1 - data-1\\people\\simple");
     }
     public static void PrintPeopleDetails(String path) {
         File directory = new File(path);
@@ -76,5 +76,28 @@ public class App {
             // Open file
             // Print Employee Object
             // Close file
+    }
+
+    public void AddEmployee(String path, int id, String firstName, String lastName, int hireYear) {
+        File directory = new File(path);
+        File[] employeeListing = directory.listFiles();
+    }
+
+    public void DeleteEmployee(String path, int id) {
+        File directory = new File(path);
+        File[] employeeListing = directory.listFiles();
+    }
+
+    public void UpdateEmployee(String path, int id) {
+        File directory = new File(path);
+        File[] employeeListing = directory.listFiles();
+    }
+
+    public void SerializeAllEmployees(String path) {
+        File directory = new File(path);
+    }
+
+    public void GetSerializeAllEmployees(String path, int id) {
+        File directory = new File(path);
     }
 }
