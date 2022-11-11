@@ -2,19 +2,31 @@ package edu.neumont.dbt.phase1;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
         // PrintEmployees("C:\\aNeumont\\Year 2\\Q1\\Databases II\\Simple Persistence\\Assignment 1 - data-1\\people\\long");
+        // try {
+        //     AddEmployee("C:\\aNeumont\\Year 2\\Q1\\Databases II\\Simple Persistence\\Assignment 1 - data-1\\people\\long", 10001, "first", "last", 1995);
+        // } catch (IOException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        //}
         // DeleteEmployee("C:\\aNeumont\\Year 2\\Q1\\Databases II\\Simple Persistence\\Assignment 1 - data-1\\people\\long", 23);
     }
+
     public static void PrintPeopleDetails(String path) {
         File directory = new File(path);
         File[] employeeListing = directory.listFiles();
@@ -81,15 +93,20 @@ public class App {
             // Close file
     }
 
-    public static void AddEmployee(String path, int id, String firstName, String lastName, int hireYear) {
+    public static void AddEmployee(String path, int id, String firstName, String lastName, int hireYear) throws IOException {
         File directory = new File(path);
         directory.mkdir();
         String hash = String.valueOf(id);
         String fileName = hash+ ".txt";
-        // File newEmployee new File(directory, fileName);
-        // newEmployee.createNewFile();
-    }
+        File newEmployee;
+        newEmployee = new File(directory, fileName);
+        newEmployee.createNewFile();
 
+        PrintWriter writer = new PrintWriter(newEmployee, "UTF-8");
+        writer.print(id+", "+firstName+", "+lastName+", "+hireYear);
+        writer.close();
+    }
+    
     public static void DeleteEmployee(String path, int id) {
         File file = new File(path, id+".txt");
         if(file.delete()){
@@ -99,8 +116,13 @@ public class App {
         }
     }
 
-    public static void UpdateEmployee(String path, int id) {
-        File directory = new File(path);
+    public static void UpdateEmployee(String path, int id, String firstName, String lastName, String hireDate) throws IOException {
+        File file = new File(path, id+".txt");
+        if(file.exists() && !file.isDirectory()) { 
+            PrintWriter writer = new PrintWriter(file, "UTF-8");
+            writer.print(id+", "+firstName+", "+lastName+", "+hireDate);
+            writer.close();
+        }
     }
 
     public static void SerializeAllEmployees(String path) {
