@@ -1,6 +1,8 @@
 package edu.neumont.dbt.phase1;
 
-public class Employee  {
+import java.io.Serializable;
+
+public class Employee implements Serializable{
     public String id;
     public String firstName;
     public String lastName;

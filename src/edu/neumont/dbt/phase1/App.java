@@ -5,11 +5,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
@@ -126,10 +129,66 @@ public class App {
     }
 
     public static void SerializeAllEmployees(String path) {
-        File directory = new File(path);
+        try
+        {
+            File directory = new File(path);
+            File[] employeeListing = directory.listFiles();
+
+            Employee e = null;
+            for (File file : employeeListing) {
+                BufferedReader br = new BufferedReader(new FileReader(file.toString()));
+                String line;
+                Field[] employeeFields = Employee.class.getFields();
+                while ((line = br.readLine()) != null)
+                {
+                    String[] eStrArr = line.split(",");
+                    e = new Employee();
+                    for (int i = 0; i < employeeFields.length && i < eStrArr.length; i++)
+                    {
+                        employeeFields[i].set(e, eStrArr[i]);
+                    }
+                }
+                FileOutputStream fOut = new FileOutputStream(file.getName() + ".ser");
+                ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+                
+                objOut.writeObject(e);
+    
+                objOut.close();
+                fOut.close();
+            }
+
+
+        }catch(Exception e)
+        {
+
+        }
+        
     }
 
-    public static void GetSerializeAllEmployees(String path, int id) {
-        File directory = new File(path);
+    public static Employee GetSerializedEmployee(String path, int id) {
+        try
+        {
+            File directory = new File(path);
+            File[] employeeListing = directory.listFiles();
+
+            Employee e = null;
+            for (File file : employeeListing) {
+                if (file.getName() == Integer.toString(id))
+                {
+                    FileInputStream fIn = new FileInputStream(file);
+                    ObjectInputStream objIn = new ObjectInputStream(fIn);
+
+                    e = (Employee) objIn.readObject();
+
+                    return e;
+                }
+            }
+
+
+        }catch(Exception e)
+        {
+
+        }
+        return null;
     }
 }
