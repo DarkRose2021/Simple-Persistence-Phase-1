@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -30,6 +32,7 @@ public class App {
         // DeleteEmployee("C:\\aNeumont\\Year 2\\Q1\\Databases II\\Simple Persistence\\Assignment 1 - data-1\\people\\long", 23);
     }
 
+    //Phase 1
     public static void PrintPeopleDetails(String path) {
         File directory = new File(path);
         File[] employeeListing = directory.listFiles();
@@ -96,6 +99,7 @@ public class App {
             // Close file
     }
 
+    //Phase 2
     public static void AddEmployee(String path, int id, String firstName, String lastName, int hireYear) throws IOException {
         File directory = new File(path);
         directory.mkdir();
@@ -190,5 +194,38 @@ public class App {
 
         }
         return null;
+    }
+
+    //Phase 3
+    public static Employee FindEmployeeById(String path, int id) {
+        Employee e = null;
+
+        return e;
+    }
+
+    public static Employee FindEmployeeByLastName(String path, String lastName) {
+        Employee e = null;
+
+        return e;
+    }
+
+    public static List<Employee> FindAllEmployeesByLastName(String path, String lastName) {
+        List<Employee> e = null;
+
+        return e;
+    }
+
+    public static void PrintSerializedDetails(String path){
+
+    }
+
+    public static HashMap<Integer, Employee> GetAllEmployees(String path){
+        HashMap<Integer, Employee> e = null;
+
+        return e;
+    }
+
+    public static void PrintAllEmployees(String path) {
+        
     }
 }
